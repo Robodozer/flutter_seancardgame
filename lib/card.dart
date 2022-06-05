@@ -44,24 +44,26 @@ class SeanCard {
   // Apply every-turn powers to this and all other cards in my hand
   void applyEveryTurnPowers(List<SeanCard> cards, int turn) {}
 
-  // Apply powers when this card is played
-  void applyPowersWhenPlayed(List<SeanCard> cards, int turn) {}
+  // Attack another card
+  void attackCard(SeanCard target, {int turn = 0, int? points}) {
+    target.processIncomingAttack(this, turn: turn, points: points);
+  }
 
   // This card is attacked. Apply points and return if this card is still alive
-  bool applyAttack(int points) {
+  void _applyAttack(int points) {
     if (points < healthPoints) {
       healthPoints -= points;
     } else {
       healthPoints = 0;
       alive = false;
     }
-    return alive;
   }
 
-  // Apply attack from another card
-  bool attack(SeanCard attackingCard, {int turn = 0, int? points}) {
+  // Handle attack from another card
+  void processIncomingAttack(SeanCard attackingCard,
+      {int turn = 0, int? points}) {
     points ??= attackingCard.attackPoints;
-    return applyAttack(points);
+    _applyAttack(points);
   }
 }
 
