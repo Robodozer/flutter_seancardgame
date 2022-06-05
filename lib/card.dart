@@ -33,12 +33,9 @@ class SeanCard {
     return "$packs ${packs == 1 ? "pack" : "packs"} $postits post-its";
   }
 
-  int getAttackPoints() {
-    return attackPoints;
-  }
-
-  int getHealthPoints() {
-    return healthPoints;
+  // Return parameters in a string for debugging
+  String paramString() {
+    return "${alive ? "[ALIVE] " : "[DEAD]  "} Name: $name, AT: $attackPoints, HP: $healthPoints, LVL: $level, Cost: $cost, Rarity: $rarity, Power: $power";
   }
 
   // Apply every-turn powers to this and all other cards in my hand
@@ -51,7 +48,7 @@ class SeanCard {
 
   // This card is attacked. Apply points and return if this card is still alive
   void applyAttack(int points) {
-    if (points < healthPoints) {
+    if (alive && points < healthPoints) {
       healthPoints -= points;
     } else {
       healthPoints = 0;
