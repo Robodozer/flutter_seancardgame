@@ -1,6 +1,6 @@
 enum Rarity {
   common,
-  cncommon,
+  uncommon,
   rare,
   superRare,
   legendary,
@@ -15,10 +15,14 @@ class SeanCard {
   String name = "";
   int attackPoints = 0;
   int healthPoints = 0;
-  final int level = 1;
-  final int cost = 1; // Cost in post-its
-  final Rarity rarity = Rarity.common;
-  final String power = "None";
+  int level = 1;
+  int cost = 1; // Cost in post-its
+  Rarity rarity = Rarity.common;
+  String power = "None";
+  bool alive = true;
+
+  SeanCard(this.name, this.attackPoints, this.healthPoints, this.level,
+      this.cost, this.rarity, this.power);
 
   String getCost() {
     if (cost < 100) return "$cost post-its (square)";
@@ -43,51 +47,100 @@ class SeanCard {
   // Apply powers when this card is played
   void applyPowersWhenPlayed(List<SeanCard> cards, int turn) {}
 
-  // This card is attacked. Returns modified attack points
-  int attacked(int points, int turn) { return points;}
+  // This card is attacked. Apply points and return if this card is still alive
+  bool applyAttack(int points) {
+    if (points < healthPoints) {
+      healthPoints -= points;
+    } else {
+      healthPoints = 0;
+      alive = false;
+    }
+    return alive;
+  }
+
+  // Apply attack from another card
+  bool attack(SeanCard attackingCard, {int turn = 0, int? points}) {
+    points ??= attackingCard.attackPoints;
+    return applyAttack(points);
+  }
 }
 
+// -------------- POWER SEAN ------------------
 class PowerSean extends SeanCard {
-  PowerSean() :
-    name : "Power Sean",
-    attackPoints : 20,
-    healthPoints : 40,
-    level : 1,
-    cost : 10,
-    rarity : Rarity.common,
-    power : "None";
+  PowerSean() : super("Power Sean", 20, 40, 1, 10, Rarity.common, "None");
 }
 
+// -------------- SUPER SEAN ------------------
 class SuperSean extends SeanCard {
-
   // Has this been used this game?
   bool used = false;
-  SuperSean() :
-    name : "Super Sean",
-    attackPoints : 50,
-    healthPoints : 75,
-    level : 2,
-    cost : 15,
-    rarity : Rarity.uncommon,
-    power : "Shield 40 damage OPEG (Once Per Every Game)",
-    used : false,
-  {}
+  SuperSean()
+      : used = false,
+        super("Super Sean", 50, 75, 2, 15, Rarity.uncommon,
+            "Shield 40 damage OPEG (Once Per Every Game)");
 
-  // TODO: Figure out how to choose to apply the shield power 
-  int attacked(int attackPoints, int turn)
+  @override
+  bool attack(SeanCard attackingCard, {int turn = 0, int? points}) {
+    points ??= attackingCard.attackPoints;
 
+    if (!used) {
+      used = true;
+      points -= 40;
+    }
+    return applyAttack(points);
+  }
 }
 
+// -------------- ULTRA SEAN ------------------
 class UltraSean extends SeanCard {
-  UltraSean() :
-    name : "Ultra Sean",
-    attackPoints : 100,
-    healthPoints : 150,
-    level : 3,
-    cost : 30,
-    rarity : Rarity.rare,
-    power : "This card reflects 25% when 50 or more damage taken",
-    used : false,
-  {}
+  UltraSean()
+      : super("Ultra Sean", 100, 150, 3, 30, Rarity.rare,
+            "This card reflects 25% when 50 or more damage taken");
 
+  @override
+  bool attack(SeanCard attackingCard, {int turn = 0, int? points}) {
+    points ??= attackingCard.attackPoints;
+
+    if (points >= 50) {
+      // Reflect 25% damage
+      attackingCard.attack(this, turn: turn, points: points ~/ 4);
+      points = (points * 3) ~/ 4;
+    }
+    return applyAttack(points);
+  }
+}
+
+// -------------- LEGENDARY SEAN ------------------
+class LegendarySean extends SeanCard {
+  LegendarySean()
+      : super("Legendary Sean", 200, 375, 4, 100, Rarity.legendary,
+            "All attacks reduced by 25%");
+
+  @override
+  bool attack(SeanCard attackingCard, {int turn = 0, int? points}) {
+    points ??= attackingCard.attackPoints;
+
+    // Reduce damage by 25%
+    points = (points * 3) ~/ 4;
+    return applyAttack(points);
+  }
+}
+
+// -------------- FART SEAN ------------------
+class FartSean extends SeanCard {
+  bool apply100ExtraDamageThisTurn = false;
+
+  FartSean()
+      : super("Fart Sean", 50, 125, 1, 100, Rarity.legendary,
+            '''In every attack, this card farts on opponents, poisoning them,
+            and dealing 100 extra damage every turn for 2 turns''');
+
+  @override
+  bool attack(SeanCard attackingCard, {int turn = 0, int? points}) {
+    points ??= attackingCard.attackPoints;
+
+    // Reduce damage by 25%
+    points = (points * 3) ~/ 4;
+    return applyAttack(points);
+  }
 }
