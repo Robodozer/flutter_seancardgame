@@ -1,14 +1,16 @@
+import 'package:flutter/material.dart';
+
 enum Rarity {
   common,
   uncommon,
   rare,
   superRare,
-  legendary,
   epic,
   mythic,
-  secret,
+  legendary,
   exotic,
   insane,
+  secret,
 }
 
 class SeanCard {
@@ -62,4 +64,19 @@ class SeanCard {
     points ??= attackingCard.attackPoints;
     applyAttack(points);
   }
+
+  /*
+  Card cardWidget() {
+    var c = Card(
+      child: Column(children: <Widget>[
+        const ListTile(
+          leading: Icon(Icons.album),
+          title: Text(name),
+          subtitle: Text(power),
+        ),
+
+      ],)
+      )
+  }
+  */
 }
