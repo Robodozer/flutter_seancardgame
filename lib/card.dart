@@ -65,18 +65,29 @@ class SeanCard {
     applyAttack(points);
   }
 
-  /*
-  Card cardWidget() {
-    var c = Card(
-      child: Column(children: <Widget>[
-        const ListTile(
-          leading: Icon(Icons.album),
-          title: Text(name),
-          subtitle: Text(power),
-        ),
-
-      ],)
-      )
+  Widget cardWidget() {
+    return Container(
+        width: 300.0,
+        height: 400.00,
+        padding: const EdgeInsets.all(8),
+        color: Colors.teal[100],
+        child: Card(
+            child: Column(
+          children: <Widget>[
+            ListTile(
+              leading: const Icon(Icons.album),
+              title: Text(name),
+              subtitle: Text(power),
+            ),
+            Row(
+              //mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Text('$attackPoints AT         $healthPoints HP',
+                    style: const TextStyle(
+                        fontSize: 10, fontWeight: FontWeight.bold)),
+              ],
+            ),
+          ],
+        )));
   }
-  */
 }
