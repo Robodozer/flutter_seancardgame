@@ -5,7 +5,7 @@ import 'package:flutter_seancardgame/card_set1.dart';
 // -------------- TEST SEAN ------------------
 class TestSean extends SeanCard {
   TestSean(int attackP, int healthP)
-      : super("Power Sean", attackP, healthP, 1, 10, Rarity.common, "None");
+      : super("Power Sean", attackPoints: attackP, healthPoints: healthP);
 }
 
 void main() {

@@ -13,6 +13,19 @@ enum Rarity {
   secret,
 }
 
+Map<Rarity, int> rarityToCost = {
+  Rarity.common: 10,
+  Rarity.uncommon: 15,
+  Rarity.rare: 20,
+  Rarity.superRare: 30,
+  Rarity.epic: 40,
+  Rarity.mythic: 50,
+  Rarity.legendary: 100,
+  Rarity.exotic: 100,
+  Rarity.insane: 150,
+  Rarity.secret: 10000,
+};
+
 class SeanCard {
   String name = "";
   int attackPoints = 0;
@@ -21,10 +34,18 @@ class SeanCard {
   int cost = 1; // Cost in post-its
   Rarity rarity = Rarity.common;
   String power = "None";
+  IconData icon = Icons.card_travel;
   bool alive = true;
 
-  SeanCard(this.name, this.attackPoints, this.healthPoints, this.level,
-      this.cost, this.rarity, this.power);
+  SeanCard(this.name,
+      {this.attackPoints = 0,
+      this.healthPoints = 0,
+      this.level = 1,
+      this.rarity = Rarity.common,
+      this.power = "None",
+      this.icon = Icons.card_travel}) {
+    cost = rarityToCost[rarity] ?? 10;
+  }
 
   String getCost() {
     if (cost < 100) return "$cost post-its (square)";
@@ -65,29 +86,89 @@ class SeanCard {
     applyAttack(points);
   }
 
-  Widget cardWidget() {
-    return Container(
-        width: 300.0,
-        height: 400.00,
-        padding: const EdgeInsets.all(8),
-        color: Colors.teal[100],
-        child: Card(
-            child: Column(
-          children: <Widget>[
-            ListTile(
-              leading: const Icon(Icons.album),
-              title: Text(name),
-              subtitle: Text(power),
-            ),
-            Row(
-              //mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Text('$attackPoints AT         $healthPoints HP',
+  Widget _buildTitleBar() {
+    return ListTile(
+        leading: Icon(icon),
+        title: Text(name),
+        subtitle: Text('${Rarity.values[rarity.index]}',
+            style: TextStyle(color: Colors.black.withOpacity(0.6))));
+
+    /*Container(
+        padding: const EdgeInsets.all(32),
+        child: Row(
+          children: [
+            Expanded(
+                child: Container(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Text(name,
+                        style: const TextStyle(fontWeight: FontWeight.bold)))),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                /*2*/
+                Container(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    '${Rarity.values[rarity.index]}',
                     style: const TextStyle(
-                        fontSize: 10, fontWeight: FontWeight.bold)),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Text(
+                  'Cost: ${getCost()}',
+                  style: TextStyle(
+                    color: Colors.grey[500],
+                  ),
+                ),
               ],
             ),
           ],
-        )));
+        ));*/
+  }
+
+  Column _pointColumn(Color color, IconData icon, String label) {
+    return Column(
+      children: [
+        Icon(icon, color: color),
+        Container(
+          margin: const EdgeInsets.only(top: 8),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: color,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPointsBar() {
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+      _pointColumn(const Color.fromARGB(239, 22, 126, 22),
+          Icons.health_and_safety_rounded, '$healthPoints HP'),
+      _pointColumn(const Color.fromARGB(240, 240, 30, 30),
+          Icons.local_fire_department, '$attackPoints AP'),
+    ]);
+  }
+
+  Widget _buildPowerBar() {
+    return Padding(
+      padding: const EdgeInsets.all(32),
+      child: Text(power),
+    );
+  }
+
+  Widget cardWidget() {
+    return Card(
+        clipBehavior: Clip.antiAlias,
+        child: Column(children: [
+          _buildTitleBar(),
+          _buildPointsBar(),
+          _buildPowerBar(),
+        ]));
   }
 }

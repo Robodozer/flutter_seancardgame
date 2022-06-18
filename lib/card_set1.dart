@@ -1,4 +1,5 @@
 import 'package:flutter_seancardgame/card.dart';
+import 'package:flutter/material.dart';
 
 /* 
 Set 1 of Sean Cards
@@ -16,7 +17,7 @@ Set 1 of Sean Cards
 
 // -------------- POWER SEAN ------------------
 class PowerSean extends SeanCard {
-  PowerSean() : super("Power Sean", 20, 40, 1, 10, Rarity.common, "None");
+  PowerSean() : super("Power Sean", attackPoints: 20, healthPoints: 40);
 }
 
 // -------------- SUPER SEAN ------------------
@@ -25,8 +26,13 @@ class SuperSean extends SeanCard {
   bool used = false;
   SuperSean()
       : used = false,
-        super("Super Sean", 50, 75, 2, 15, Rarity.uncommon,
-            "Shield 40 damage OPEG (Once Per Every Game)");
+        super("Super Sean",
+            attackPoints: 50,
+            healthPoints: 75,
+            level: 2,
+            rarity: Rarity.uncommon,
+            power: "Shield 40 damage OPEG (Once Per Every Game)",
+            icon: Icons.card_membership);
 
   @override
   void processIncomingAttack(SeanCard attackingCard,
@@ -49,8 +55,12 @@ class SuperSean extends SeanCard {
 // -------------- ULTRA SEAN ------------------
 class UltraSean extends SeanCard {
   UltraSean()
-      : super("Ultra Sean", 100, 150, 3, 30, Rarity.rare,
-            "This card reflects 25% when 50 or more damage taken");
+      : super("Ultra Sean",
+            attackPoints: 100,
+            healthPoints: 150,
+            level: 3,
+            rarity: Rarity.rare,
+            power: "This card reflects 25% when 50 or more damage taken");
 
   @override
   void processIncomingAttack(SeanCard attackingCard,
@@ -71,8 +81,12 @@ class UltraSean extends SeanCard {
 // -------------- LEGENDARY SEAN ------------------
 class LegendarySean extends SeanCard {
   LegendarySean()
-      : super("Legendary Sean", 200, 375, 4, 100, Rarity.legendary,
-            "All attacks reduced by 25%");
+      : super("Legendary Sean",
+            attackPoints: 200,
+            healthPoints: 375,
+            level: 4,
+            rarity: Rarity.legendary,
+            power: "All attacks reduced by 25%");
 
   @override
   void processIncomingAttack(SeanCard attackingCard,
@@ -90,9 +104,13 @@ class FartSean extends SeanCard {
   SeanCard? targetToApply100Damage;
 
   FartSean()
-      : super("Fart Sean", 50, 125, 1, 100, Rarity.legendary,
-            '''In every attack, this card farts on opponents, poisoning them,
-            and dealing 100 extra damage every turn for 2 turns''');
+      : super("Fart Sean",
+            attackPoints: 50,
+            healthPoints: 125,
+            level: 1,
+            rarity: Rarity.legendary,
+            power:
+                'In every attack, this card farts on opponents, poisoning them and dealing 100 extra damage every turn for 2 turns');
 
   // Attack another card
   @override
@@ -119,8 +137,12 @@ class FartSean extends SeanCard {
 // -------------- THE FARRELL FAMILY ------------------
 class TheFarrellFamily extends SeanCard {
   TheFarrellFamily()
-      : super("The Farrell Family", 25, 25, 1, 30, Rarity.superRare,
-            "This card has 4 lives");
+      : super("The Farrell Family",
+            attackPoints: 25,
+            healthPoints: 25,
+            level: 1,
+            rarity: Rarity.superRare,
+            power: "This card has 4 lives");
 
   int lives = 4;
 
@@ -143,8 +165,12 @@ class TheFarrellFamily extends SeanCard {
 // -------------- THE FARRELL FAMILY (EX) ------------------
 class TheFarrellFamilyEx extends SeanCard {
   TheFarrellFamilyEx()
-      : super("The Farrell Family (ex)", 25, 30, 2, 10, Rarity.legendary,
-            "This card has 8 lives");
+      : super("The Farrell Family (ex)",
+            attackPoints: 25,
+            healthPoints: 30,
+            level: 2,
+            rarity: Rarity.legendary,
+            power: "This card has 8 lives");
 
   int lives = 8;
 
@@ -166,12 +192,24 @@ class TheFarrellFamilyEx extends SeanCard {
 
 // -------------- ROCK SEAN ------------------
 class RockSean extends SeanCard {
-  RockSean() : super("Rock Sean", 50, 75, 1, 15, Rarity.uncommon, "None");
+  RockSean()
+      : super("Rock Sean",
+            attackPoints: 50,
+            healthPoints: 75,
+            level: 1,
+            rarity: Rarity.uncommon,
+            power: "None");
 
   // TODO: Figure out what to do with this guy
 }
 
 // -------------- ZOMBIE SEAN ------------------
 class ZombieSean extends SeanCard {
-  ZombieSean() : super("Zombie Sean", 50, 75, 1, 15, Rarity.uncommon, "None");
+  ZombieSean()
+      : super("Zombie Sean",
+            attackPoints: 50,
+            healthPoints: 75,
+            level: 1,
+            rarity: Rarity.uncommon,
+            power: "None");
 }

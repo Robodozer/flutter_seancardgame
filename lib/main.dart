@@ -54,9 +54,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<SeanCard> myCards = [
     SuperSean(),
-    UltraSean(),
+    TheFarrellFamilyEx(),
     LegendarySean(),
-    FartSean()
+  ];
+
+  List<SeanCard> yourCards = [
+    FartSean(),
+    PowerSean(),
+    RockSean(),
   ];
   void _incrementCounter() {
     setState(() {
@@ -83,35 +88,26 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            GridView.count(
-              primary: false,
-              padding: const EdgeInsets.all(20),
-              crossAxisCount: 3,
-              children: myCards.map((f) => f.cardWidget()).toList(),
-            )
-          ],
-        ),
-      ),
+      body: Column(children: [
+        Expanded(
+            child: GridView.count(
+          crossAxisCount: 3,
+          padding: const EdgeInsets.all(20),
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          children: yourCards.map((f) => f.cardWidget()).toList(),
+        )),
+        const SizedBox(height: 50),
+        Expanded(
+            child: GridView.count(
+          padding: const EdgeInsets.all(20),
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          crossAxisCount: 3,
+          children: myCards.map((f) => f.cardWidget()).toList(),
+        )),
+      ]),
+
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
