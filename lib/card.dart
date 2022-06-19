@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 enum Rarity {
   common,
@@ -86,89 +87,101 @@ class SeanCard {
     applyAttack(points);
   }
 
-  Widget _buildTitleBar() {
-    return ListTile(
-        leading: Icon(icon),
-        title: Text(name),
-        subtitle: Text('${Rarity.values[rarity.index]}',
-            style: TextStyle(color: Colors.black.withOpacity(0.6))));
-
-    /*Container(
-        padding: const EdgeInsets.all(32),
-        child: Row(
-          children: [
-            Expanded(
-                child: Container(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Text(name,
-                        style: const TextStyle(fontWeight: FontWeight.bold)))),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                /*2*/
-                Container(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: Text(
-                    '${Rarity.values[rarity.index]}',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Text(
-                  'Cost: ${getCost()}',
-                  style: TextStyle(
-                    color: Colors.grey[500],
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ));*/
-  }
-
-  Column _pointColumn(Color color, IconData icon, String label) {
-    return Column(
-      children: [
-        Icon(icon, color: color),
-        Container(
-          margin: const EdgeInsets.only(top: 8),
-          child: Text(
+  Widget _pointColumn(Color color, IconData icon, String label) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: const BoxDecoration(
+          color: Color.fromARGB(200, 200, 200, 200),
+          borderRadius: BorderRadius.all(Radius.circular(15.0))),
+      child: Column(
+        children: [
+          Icon(icon, color: color),
+          Text(
             label,
             style: TextStyle(
               fontSize: 12,
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.bold,
               color: color,
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
-  Widget _buildPointsBar() {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-      _pointColumn(const Color.fromARGB(239, 22, 126, 22),
-          Icons.health_and_safety_rounded, '$healthPoints HP'),
-      _pointColumn(const Color.fromARGB(240, 240, 30, 30),
-          Icons.local_fire_department, '$attackPoints AP'),
+  Widget _titleBar() {
+    return Stack(children: [
+      Image.asset('images/tilepic.webp'),
+      Column(children: [
+        Align(
+          alignment: Alignment.topCenter,
+          child: Container(
+              margin: const EdgeInsets.all(10),
+              decoration: const BoxDecoration(
+                  color: Color.fromARGB(200, 200, 200, 200),
+                  borderRadius: BorderRadius.all(Radius.circular(20.0))),
+              child: ListTile(
+                  //leading: Icon(icon),
+                  title: Text(name,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.lexendDeca(
+                          fontWeight: FontWeight.bold, fontSize: 19)))),
+        ),
+        const SizedBox(height: 30),
+        Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          _pointColumn(const Color.fromARGB(255, 22, 126, 22),
+              Icons.health_and_safety_rounded, '$healthPoints HP'),
+          _pointColumn(Color.fromARGB(255, 160, 15, 15),
+              Icons.local_fire_department, '$attackPoints AP'),
+        ])
+      ])
     ]);
   }
 
-  Widget _buildPowerBar() {
+  Widget powerBar() {
     return Padding(
-      padding: const EdgeInsets.all(32),
-      child: Text(power),
+      padding: const EdgeInsets.all(16),
+      child: Text(power,
+          style: GoogleFonts.ptSans(fontSize: 15, color: Colors.grey)),
     );
   }
 
-  Widget cardWidget() {
+  Widget _buttonBar({bool enablePlay = false, bool enableTarget = false}) {
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+      Column(
+        children: [
+          const Icon(
+            Icons.monetization_on,
+            color: Colors.grey,
+            size: 16,
+          ),
+          Text('${Rarity.values[rarity.index]}'.substring(7),
+              style: const TextStyle(fontSize: 10, color: Colors.grey))
+        ],
+      ),
+      ButtonBar(
+        children: [
+          ElevatedButton(
+            onPressed: enablePlay ? () {} : null,
+            child: const Text("Play"),
+          ),
+          ElevatedButton(
+            onPressed: enableTarget ? () {} : null,
+            child: const Text("Target"),
+          ),
+        ],
+      )
+    ]);
+  }
+
+  Widget cardWidget({bool enablePlay = false, bool enableTarget = false}) {
     return Card(
         clipBehavior: Clip.antiAlias,
         child: Column(children: [
-          _buildTitleBar(),
-          _buildPointsBar(),
-          _buildPowerBar(),
+          _titleBar(),
+          const SizedBox(height: 10),
+          Expanded(child: powerBar()),
+          _buttonBar(enablePlay: enablePlay, enableTarget: enableTarget)
         ]));
   }
 }

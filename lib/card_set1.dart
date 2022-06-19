@@ -1,5 +1,6 @@
 import 'package:flutter_seancardgame/card.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 /* 
 Set 1 of Sean Cards
@@ -160,6 +161,25 @@ class TheFarrellFamily extends SeanCard {
   String paramString() {
     return "${super.paramString()} Lives: $lives";
   }
+
+  @override
+  Widget powerBar() {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: RichText(
+          text: TextSpan(
+              style: GoogleFonts.ptSans(fontSize: 15, color: Colors.grey),
+              children: [
+            const TextSpan(text: 'This card has '),
+            TextSpan(
+              text: '$lives of 4',
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold, color: Colors.blue),
+            ),
+            const TextSpan(text: ' lives remaining'),
+          ])),
+    );
+  }
 }
 
 // -------------- THE FARRELL FAMILY (EX) ------------------
@@ -187,6 +207,25 @@ class TheFarrellFamilyEx extends SeanCard {
   @override
   String paramString() {
     return "${super.paramString()} Lives: $lives";
+  }
+
+  @override
+  Widget powerBar() {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: RichText(
+          text: TextSpan(
+              style: GoogleFonts.ptSans(fontSize: 15, color: Colors.grey),
+              children: [
+            const TextSpan(text: 'This card has '),
+            TextSpan(
+              text: '$lives of 8',
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold, color: Colors.blue),
+            ),
+            const TextSpan(text: ' lives remaining'),
+          ])),
+    );
   }
 }
 
