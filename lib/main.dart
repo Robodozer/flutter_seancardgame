@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_seancardgame/card.dart';
 import 'package:flutter_seancardgame/card_set1.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
+import 'package:flutter_seancardgame/gameplay.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,16 +27,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
@@ -43,18 +34,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<SeanCard> myCards = [
-    SuperSean(),
-    TheFarrellFamilyEx(),
-    LegendarySean(),
-  ];
-
-  List<SeanCard> yourCards = [
-    FartSean(),
-    PowerSean(),
-    RockSean(),
-  ];
-
+  GamePlay gamePlay = GamePlay();
+//  gamePlay.dealCards();
+//
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -75,16 +57,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 rowSizes: const [auto],
                 rowGap: 40, // equivalent to mainAxisSpacing
                 columnGap: 24,
-                children: yourCards.map((f) => f.cardWidget()).toList()),
-
-            const SizedBox(height: 50),
-
+                children: gamePlay.yourCardWidgets()),
+            SizedBox(height: 150, child: gamePlay.playModeWidget()),
             LayoutGrid(
                 columnSizes: [300.px, 300.px, 300.px],
                 rowSizes: const [auto],
                 rowGap: 40, // equivalent to mainAxisSpacing
                 columnGap: 20,
-                children: myCards.map((f) => f.cardWidget()).toList()), //),
+                children: gamePlay.myCardWidgets()),
           ]),
         ));
   }

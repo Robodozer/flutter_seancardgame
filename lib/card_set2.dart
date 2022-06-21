@@ -14,6 +14,6 @@ class NinjaSean extends SeanCard {
             attackPoints: 50,
             healthPoints: 50,
             level: 1,
-            rarity: Rarity.rare,
+            rarity: Rarity.Rare,
             power: "Attacks 2 targets");
 }

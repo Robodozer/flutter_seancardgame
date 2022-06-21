@@ -31,7 +31,7 @@ class SuperSean extends SeanCard {
             attackPoints: 50,
             healthPoints: 75,
             level: 2,
-            rarity: Rarity.uncommon,
+            rarity: Rarity.Uncommon,
             power: "Shield 40 damage OPEG (Once Per Every Game)",
             icon: Icons.card_membership);
 
@@ -48,8 +48,8 @@ class SuperSean extends SeanCard {
   }
 
   @override
-  String paramString() {
-    return "${super.paramString()} Used: $used";
+  String toString() {
+    return "${super.toString()} Used: $used";
   }
 }
 
@@ -60,7 +60,7 @@ class UltraSean extends SeanCard {
             attackPoints: 100,
             healthPoints: 150,
             level: 3,
-            rarity: Rarity.rare,
+            rarity: Rarity.Rare,
             power: "This card reflects 25% when 50 or more damage taken");
 
   @override
@@ -86,7 +86,7 @@ class LegendarySean extends SeanCard {
             attackPoints: 200,
             healthPoints: 375,
             level: 4,
-            rarity: Rarity.legendary,
+            rarity: Rarity.Legendary,
             power: "All attacks reduced by 25%");
 
   @override
@@ -109,7 +109,7 @@ class FartSean extends SeanCard {
             attackPoints: 50,
             healthPoints: 125,
             level: 1,
-            rarity: Rarity.legendary,
+            rarity: Rarity.Legendary,
             power:
                 'In every attack, this card farts on opponents, poisoning them and dealing 100 extra damage every turn for 2 turns');
 
@@ -142,7 +142,7 @@ class TheFarrellFamily extends SeanCard {
             attackPoints: 25,
             healthPoints: 25,
             level: 1,
-            rarity: Rarity.superRare,
+            rarity: Rarity.SuperRare,
             power: "This card has 4 lives");
 
   int lives = 4;
@@ -158,8 +158,8 @@ class TheFarrellFamily extends SeanCard {
   }
 
   @override
-  String paramString() {
-    return "${super.paramString()} Lives: $lives";
+  String toString() {
+    return "${super.toString()} Lives: $lives";
   }
 
   @override
@@ -185,11 +185,11 @@ class TheFarrellFamily extends SeanCard {
 // -------------- THE FARRELL FAMILY (EX) ------------------
 class TheFarrellFamilyEx extends SeanCard {
   TheFarrellFamilyEx()
-      : super("The Farrell Family (ex)",
+      : super("The Farrell Family (extended)",
             attackPoints: 25,
             healthPoints: 30,
             level: 2,
-            rarity: Rarity.legendary,
+            rarity: Rarity.Legendary,
             power: "This card has 8 lives");
 
   int lives = 8;
@@ -205,8 +205,8 @@ class TheFarrellFamilyEx extends SeanCard {
   }
 
   @override
-  String paramString() {
-    return "${super.paramString()} Lives: $lives";
+  String toString() {
+    return "${super.toString()} Lives: $lives";
   }
 
   @override
@@ -236,7 +236,7 @@ class RockSean extends SeanCard {
             attackPoints: 50,
             healthPoints: 75,
             level: 1,
-            rarity: Rarity.uncommon,
+            rarity: Rarity.Mythic,
             power: "None");
 
   // TODO: Figure out what to do with this guy
@@ -249,6 +249,6 @@ class ZombieSean extends SeanCard {
             attackPoints: 50,
             healthPoints: 75,
             level: 1,
-            rarity: Rarity.uncommon,
+            rarity: Rarity.Uncommon,
             power: "None");
 }
