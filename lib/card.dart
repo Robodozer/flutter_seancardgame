@@ -2,20 +2,25 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:math';
+import 'dart:math' as math;
+import 'dart:developer';
 
 enum CardMode {
   disabled,
   canBePlayed,
-  playClicked,
   canBeUnplayed,
-  unplayClicked,
   canBeTargeted,
-  targetClicked,
   canBeUntargeted,
-  untargetClicked,
   attacking,
   beingAttacked,
+}
+
+enum CardEvent {
+  playClicked,
+  unplayClicked,
+  targetClicked,
+  untargetClicked,
+  turnConfirmed,
 }
 
 enum Rarity {
@@ -70,7 +75,7 @@ class SeanCard {
   String id = '';
   Color textColor = Colors.white;
   CardMode mode = CardMode.disabled;
-  var random = Random();
+  var random = math.Random();
 
   SeanCard(this.name,
       {this.attackPoints = 0,
@@ -99,7 +104,7 @@ class SeanCard {
   }
 
   void setMode(CardMode newMode) {
-    print("Setting mode to $newMode");
+    log("Setting mode to $newMode");
     mode = newMode;
   }
 
@@ -143,21 +148,25 @@ class SeanCard {
     applyAttack(points);
   }
 
-  Widget _pointColumn(Color color, IconData icon, String label) {
+  Widget _pointColumn(
+      {required Color textColor,
+      required Color bgColor,
+      required IconData icon,
+      String label = ''}) {
     return Container(
       padding: const EdgeInsets.all(10),
-      decoration: const BoxDecoration(
-          color: Color.fromARGB(200, 200, 200, 200),
-          borderRadius: BorderRadius.all(Radius.circular(15.0))),
+      decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: const BorderRadius.all(Radius.circular(15.0))),
       child: Column(
         children: [
-          Icon(icon, color: color),
+          Icon(icon, color: textColor),
           Text(
             label,
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.bold,
-              color: color,
+              color: textColor,
             ),
           ),
         ],
@@ -199,18 +208,25 @@ class SeanCard {
       alive
           ? Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
               _pointColumn(
-                  mode != CardMode.disabled
+                  textColor: mode != CardMode.disabled
                       ? const Color.fromARGB(255, 18, 131, 18)
                       : Colors.black,
-                  Icons.health_and_safety_rounded,
-                  '$healthPoints HP'),
+                  bgColor: (mode == CardMode.canBeUntargeted)
+                      ? const Color.fromARGB(200, 255, 255, 0)
+                      : const Color.fromARGB(200, 200, 200, 200),
+                  icon: Icons.health_and_safety_rounded,
+                  label: '$healthPoints HP'),
               const SizedBox(width: 90),
               _pointColumn(
-                  mode != CardMode.disabled
+                  textColor: mode != CardMode.disabled
                       ? const Color.fromARGB(255, 160, 15, 15)
                       : Colors.black,
-                  Icons.local_fire_department,
-                  '$attackPoints AP'),
+                  bgColor: (mode == CardMode.canBeUnplayed ||
+                          mode == CardMode.attacking)
+                      ? const Color.fromARGB(200, 255, 255, 0)
+                      : const Color.fromARGB(200, 200, 200, 200),
+                  icon: Icons.local_fire_department,
+                  label: '$attackPoints AT'),
             ])
           : const SizedBox(height: 30)
     ]);
@@ -224,7 +240,66 @@ class SeanCard {
     );
   }
 
-  Widget _buttonBar() {
+  Widget _actionButton(Function(String, CardEvent) eventCallback) {
+    if (!alive) {
+      return const SizedBox(height: 72, width: 54);
+    }
+
+    switch (mode) {
+      case CardMode.canBePlayed:
+        return IconButton(
+            icon: const Icon(Icons.auto_fix_normal,
+                color: Colors.blue), // Icons.play_circle
+            iconSize: 54,
+            //label: const Text("Play"),
+            onPressed: () {
+              eventCallback(id, CardEvent.playClicked);
+            });
+
+      case CardMode.canBeUnplayed:
+        return IconButton(
+            icon: const Icon(Icons.undo,
+                color: Colors.lightBlue), // Icons.unpublished
+            iconSize: 54,
+            //label: const Text("Play"),
+            onPressed: () {
+              eventCallback(id, CardEvent.unplayClicked);
+            });
+
+      case CardMode.canBeTargeted:
+        return IconButton(
+            icon: const Icon(Icons.ads_click, color: Colors.red),
+            iconSize: 54,
+            //label: const Text("Play"),
+            onPressed: () {
+              eventCallback(id, CardEvent.targetClicked);
+            });
+
+      case CardMode.canBeUntargeted:
+        return IconButton(
+            icon: const Icon(Icons.undo, color: Colors.orange),
+            iconSize: 54,
+            //label: const Text("Play"),
+            onPressed: () {
+              eventCallback(id, CardEvent.untargetClicked);
+            });
+
+      case CardMode.attacking:
+      case CardMode.beingAttacked:
+        return IconButton(
+            icon: const Icon(Icons.task_alt, color: Colors.green),
+            iconSize: 54,
+            //label: const Text("Play"),
+            onPressed: () {
+              eventCallback(id, CardEvent.turnConfirmed);
+            });
+
+      default:
+        return const SizedBox(height: 72, width: 54);
+    }
+  }
+
+  Widget _buttonBar(Function(String, CardEvent) eventCallback) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
       Tooltip(
           message: 'Cost: ${getCost()}',
@@ -240,19 +315,7 @@ class SeanCard {
             ],
           )),
       const SizedBox(width: 120),
-      alive && (mode == CardMode.canBePlayed)
-          ? IconButton(
-              icon: const Icon(Icons.play_circle, color: Colors.blue),
-              iconSize: 54,
-              //label: const Text("Play"),
-              onPressed: () {})
-          : alive && (mode == CardMode.canBeTargeted)
-              ? IconButton(
-                  icon: const Icon(Icons.ads_click, color: Colors.red),
-                  iconSize: 54,
-                  //label: const Text("Play"),
-                  onPressed: () {})
-              : const SizedBox(height: 72, width: 54)
+      _actionButton(eventCallback)
     ]);
   }
 
@@ -275,7 +338,7 @@ class SeanCard {
     // Image.asset('images/electricity.jpg'),
   }
 
-  Widget cardWidget() {
+  Widget cardWidget(Function(String, CardEvent) eventCallback) {
     return SizedBox(
         width: 480,
         height: 400,
@@ -288,7 +351,7 @@ class SeanCard {
                 const SizedBox(height: 10),
                 Expanded(
                     child: alive ? powerBar() : const SizedBox(height: 10)),
-                _buttonBar()
+                _buttonBar(eventCallback)
               ])
             ])));
   }
