@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_seancardgame/card.dart';
-import 'package:flutter_seancardgame/card_set1.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:flutter_seancardgame/gameplay.dart';
 
@@ -35,8 +33,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   GamePlay gamePlay = GamePlay();
-//  gamePlay.dealCards();
-//
+
+  _MyHomePageState() : super() {
+    print("START OF GAME: Dealing cards")
+    gamePlay.dealCards();
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done

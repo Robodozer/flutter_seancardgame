@@ -36,7 +36,6 @@ class GamePlay {
   String cardTargetedId = ''; // ID of card being targeted
 
   void dealCards() {
-    print('dealCards');
     myCards = [
       SuperSean(),
       TheFarrellFamilyEx(),
@@ -48,10 +47,6 @@ class GamePlay {
       PowerSean(),
       RockSean(),
     ];
-  }
-
-  GamePlay() {
-    dealCards();
   }
 
   SeanCard findCard(String id) {
