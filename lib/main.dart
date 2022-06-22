@@ -35,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   GamePlay gamePlay = GamePlay();
 
   _MyHomePageState() : super() {
-    print("START OF GAME: Dealing cards")
+    print("START OF GAME: Dealing cards");
     gamePlay.dealCards();
   }
 
