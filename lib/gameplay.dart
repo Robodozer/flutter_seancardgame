@@ -2,6 +2,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_seancardgame/card.dart';
 import 'package:flutter_seancardgame/card_set1.dart';
+import 'package:flutter_seancardgame/card_set2.dart';
+import 'package:flutter_seancardgame/card_set3.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 enum GameTurn { mine, yours }
@@ -11,6 +13,14 @@ enum GamePlayState {
   waitSelectTarget,
   waitConfirmTurn,
 }
+
+List<SeanCard> allCards = [
+  PowerSean(),
+  SuperSean(),
+  UltraSean(),
+  LegendarySean(),
+  
+]
 
 class GamePlay {
   List<SeanCard> myCards = [];

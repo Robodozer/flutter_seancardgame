@@ -323,12 +323,13 @@ class SeanCard {
     if (alive) {
       return mode != CardMode.disabled
           ? Image.asset('images/${Rarity.values[rarity.index]}.jpg')
-          : ColorFiltered(
+          : /*ColorFiltered(
               colorFilter: const ColorFilter.mode(
                 Colors.grey,
                 BlendMode.saturation,
               ),
-              child: Image.asset('images/${Rarity.values[rarity.index]}.jpg'));
+              child: Image.asset('images/${Rarity.values[rarity.index]}.jpg')*/
+          Image.asset('images/${Rarity.values[rarity.index]}.jpg');
     } else {
       return Column(children: [
         const SizedBox(height: 60),
@@ -343,6 +344,8 @@ class SeanCard {
         width: 480,
         height: 400,
         child: Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.00)),
             clipBehavior: Clip.antiAlias,
             child: Stack(children: [
               _background(),
