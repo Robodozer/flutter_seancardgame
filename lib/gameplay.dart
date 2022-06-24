@@ -19,8 +19,21 @@ List<SeanCard> allCards = [
   SuperSean(),
   UltraSean(),
   LegendarySean(),
-  
-]
+  FartSean(),
+  TheFarrellFamily(),
+  TheFarrellFamilyEx(),
+  RockSean(),
+  ZombieSean(),
+  NinjaSean(),
+  HappySean(),
+  ThinkerSean(),
+  Sean(),
+  SatanSean(),
+  CoolSean(),
+  SuperiorSean(),
+  RedSean(),
+  OrangeSean(),
+];
 
 class GamePlay {
   List<SeanCard> myCards = [];
