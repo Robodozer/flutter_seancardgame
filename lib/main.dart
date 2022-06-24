@@ -69,8 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 rowGap: 40, // equivalent to mainAxisSpacing
                 columnGap: 24,
                 children: gamePlay.yourCardWidgets(eventCallback)),
-            SizedBox(
-                height: 150, child: gamePlay.playModeWidget(eventCallback)),
+            SizedBox(height: 90, child: gamePlay.playModeWidget(eventCallback)),
             LayoutGrid(
                 columnSizes: [300.px, 300.px, 300.px],
                 rowSizes: const [auto],
