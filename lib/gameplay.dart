@@ -33,6 +33,10 @@ List<SeanCard> allCards = [
   SuperiorSean(),
   RedSean(),
   OrangeSean(),
+  GoldenSean(),
+  BalletSean(),
+  DancingSean(),
+  DepressedSean(),
 ];
 
 class GamePlay {

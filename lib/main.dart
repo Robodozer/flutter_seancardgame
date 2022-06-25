@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'The Great Sean Cards Game',
+      title: 'A Casual Game Of Sean Cards',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         fontFamily: 'Rubik',
@@ -50,6 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -69,7 +70,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 rowGap: 40, // equivalent to mainAxisSpacing
                 columnGap: 24,
                 children: gamePlay.yourCardWidgets(eventCallback)),
-            SizedBox(height: 90, child: gamePlay.playModeWidget(eventCallback)),
+            SizedBox(
+                height: height / 8,
+                child: gamePlay.playModeWidget(eventCallback)),
             LayoutGrid(
                 columnSizes: [300.px, 300.px, 300.px],
                 rowSizes: const [auto],
