@@ -165,11 +165,16 @@ class GamePlay {
         assert(playState == GamePlayState.waitConfirmTurn);
         assert(cardPlayedId != '');
         assert(cardTargetedId != '');
-        findCard(cardPlayedId).setMode(CardMode.attacking);
-        findCard(cardTargetedId).setMode(CardMode.beingAttacked);
+        var attackingCard = findCard(cardPlayedId);
+        var targetCard = findCard(cardTargetedId);
+        attackingCard.setMode(CardMode.attacking);
+        targetCard.setMode(CardMode.beingAttacked);
         log("PLAYING TURN - Card $cardPlayedId attacking Card $cardTargetedId");
         log('ATTACKER: ${findCard(cardPlayedId)}');
         log('TARGET: ${findCard(cardTargetedId)}');
+
+        // subtract HP of other player
+        attackingCard.attackCard(targetCard);
 
         // swap turn
         turn = (turn == GameTurn.mine) ? GameTurn.yours : GameTurn.mine;

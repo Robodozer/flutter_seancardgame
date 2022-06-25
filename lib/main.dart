@@ -50,6 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
@@ -71,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 columnGap: 24,
                 children: gamePlay.yourCardWidgets(eventCallback)),
             SizedBox(
-                height: height / 8,
+                height: height - 800 - 80,
                 child: gamePlay.playModeWidget(eventCallback)),
             LayoutGrid(
                 columnSizes: [300.px, 300.px, 300.px],
