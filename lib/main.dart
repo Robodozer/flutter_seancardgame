@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:flutter_seancardgame/gameplay.dart';
@@ -47,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
@@ -60,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 rowGap: 40, // equivalent to mainAxisSpacing
                 columnGap: 24,
                 children: gamePlay.yourCardWidgets()),
-            SizedBox(height: 150, child: gamePlay.playModeWidget()),
+            SizedBox(height: height / 8, child: gamePlay.playModeWidget()),
             LayoutGrid(
                 columnSizes: [300.px, 300.px, 300.px],
                 rowSizes: const [auto],
