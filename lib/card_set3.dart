@@ -49,3 +49,13 @@ class DepressedSean extends SeanCard {
             power:
                 "every successful attack, increase your attack damage by 100");
 }
+
+class BountyHunterSean extends SeanCard {
+  BountyHunterSean()
+      : super("Bounty Hunter Sean",
+            attackPoints: 300,
+            healthPoints: 500,
+            level: 1,
+            rarity: Rarity.Legendary,
+            power: "every kill, this card gains 150 attack");
+}
