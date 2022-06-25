@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:flutter_seancardgame/gameplay.dart';
@@ -51,13 +50,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    double height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
@@ -70,13 +69,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 rowSizes: const [auto],
                 rowGap: 40, // equivalent to mainAxisSpacing
                 columnGap: 24,
-<<<<<<< HEAD
-                children: gamePlay.yourCardWidgets()),
-            SizedBox(height: height / 8, child: gamePlay.playModeWidget()),
-=======
                 children: gamePlay.yourCardWidgets(eventCallback)),
-            SizedBox(height: 90, child: gamePlay.playModeWidget(eventCallback)),
->>>>>>> 40af732c3cba17d674de29b6cce013eae1feead8
+            SizedBox(
+                height: height / 8,
+                child: gamePlay.playModeWidget(eventCallback)),
             LayoutGrid(
                 columnSizes: [300.px, 300.px, 300.px],
                 rowSizes: const [auto],
