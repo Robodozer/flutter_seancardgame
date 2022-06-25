@@ -233,12 +233,13 @@ class TheFarrellFamilyEx extends SeanCard {
 class RockSean extends SeanCard {
   RockSean()
       : super("Rock Sean",
-            attackPoints: 50,
-            healthPoints: 75,
+            attackPoints: 15,
+            healthPoints: 800,
             level: 1,
-            rarity: Rarity.Mythic,
-            power: "None");
+            rarity: Rarity.Legendary,
+            power: "shield other cards 500 AT");
 
+  // ignore: todo
   // TODO: Figure out what to do with this guy
 }
 

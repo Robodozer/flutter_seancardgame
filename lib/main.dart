@@ -2,6 +2,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:flutter_seancardgame/gameplay.dart';
+import 'package:flutter_seancardgame/card.dart';
+import 'dart:developer';
 
 void main() {
   runApp(const MyApp());
@@ -36,8 +38,15 @@ class _MyHomePageState extends State<MyHomePage> {
   GamePlay gamePlay = GamePlay();
 
   _MyHomePageState() : super() {
-    print("START OF GAME: Dealing cards");
+    log("START OF GAME: Dealing cards");
     gamePlay.dealCards();
+  }
+
+  void eventCallback(String id, CardEvent event) {
+    log("Event happened: $id $event");
+    setState(() {
+      gamePlay.eventClicked(id, event);
+    });
   }
 
   @override
@@ -61,14 +70,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 rowSizes: const [auto],
                 rowGap: 40, // equivalent to mainAxisSpacing
                 columnGap: 24,
+<<<<<<< HEAD
                 children: gamePlay.yourCardWidgets()),
             SizedBox(height: height / 8, child: gamePlay.playModeWidget()),
+=======
+                children: gamePlay.yourCardWidgets(eventCallback)),
+            SizedBox(height: 90, child: gamePlay.playModeWidget(eventCallback)),
+>>>>>>> 40af732c3cba17d674de29b6cce013eae1feead8
             LayoutGrid(
                 columnSizes: [300.px, 300.px, 300.px],
                 rowSizes: const [auto],
                 rowGap: 40, // equivalent to mainAxisSpacing
                 columnGap: 20,
-                children: gamePlay.myCardWidgets()),
+                children: gamePlay.myCardWidgets(eventCallback)),
           ]),
         ));
   }
