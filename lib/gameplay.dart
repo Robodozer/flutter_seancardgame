@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_seancardgame/card.dart';
 import 'package:flutter_seancardgame/card_set1.dart';
@@ -50,17 +51,22 @@ class GamePlay {
   String cardTargetedId = ''; // ID of card being targeted
 
   void dealCards() {
+    var random = math.Random.secure();
     myCards = [
-      SuperSean(),
-      TheFarrellFamilyEx(),
-      LegendarySean(),
+      allCards[random.nextInt(allCards.length)],
+      allCards[random.nextInt(allCards.length)],
+      allCards[random.nextInt(allCards.length)],
     ];
 
-    yourCards = [
-      FartSean(),
-      PowerSean(),
-      RockSean(),
-    ];
+    for (var i in [0, 1, 2]) {
+      while (true) {
+        var card = allCards[random.nextInt(allCards.length)];
+        if (card.rarity == myCards[i].rarity) {
+          yourCards.add(card);
+          break;
+        }
+      }
+    }
 
     turn = GameTurn.mine;
     playState = GamePlayState.waitStartTurn;
