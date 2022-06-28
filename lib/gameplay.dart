@@ -5,6 +5,7 @@ import 'package:flutter_seancardgame/card.dart';
 import 'package:flutter_seancardgame/card_set1.dart';
 import 'package:flutter_seancardgame/card_set2.dart';
 import 'package:flutter_seancardgame/card_set3.dart';
+// ignore: unused_import
 import 'package:google_fonts/google_fonts.dart';
 
 enum GameTurn { mine, yours }
@@ -50,8 +51,9 @@ class GamePlay {
   String cardPlayedId = ''; // ID of card being played
   String cardTargetedId = ''; // ID of card being targeted
 
-  void dealCards() {
+  Future<void> dealCards() async {
     var random = math.Random.secure();
+
     myCards = [
       allCards[random.nextInt(allCards.length)],
       allCards[random.nextInt(allCards.length)],

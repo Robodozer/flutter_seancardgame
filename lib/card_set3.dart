@@ -59,3 +59,43 @@ class BountyHunterSean extends SeanCard {
             rarity: Rarity.Legendary,
             power: "every kill, this card gains 150 attack");
 }
+
+class BabySean extends SeanCard {
+  BabySean()
+      : super("Baby Sean",
+            attackPoints: 100,
+            healthPoints: 215,
+            level: 1,
+            rarity: Rarity.Legendary,
+            power: "every 3 turns, do 300 extra damage");
+}
+
+class PsychoSean extends SeanCard {
+  PsychoSean()
+      : super("Psycho Sean",
+            attackPoints: 100,
+            healthPoints: 500,
+            level: 1,
+            rarity: Rarity.Legendary,
+            power: "every 5 turns, reflect all damage");
+}
+
+class WallSean extends SeanCard {
+  WallSean()
+      : super("Wall Sean",
+            attackPoints: 10,
+            healthPoints: 100,
+            level: 1,
+            rarity: Rarity.Legendary,
+            power: "every turn, shield teammates 100 attack");
+}
+
+class PossessedSean extends SeanCard {
+  PossessedSean()
+      : super("Possessed Sean",
+            attackPoints: 800,
+            healthPoints: 1000,
+            level: 1,
+            rarity: Rarity.Legendary,
+            power: "every 5 attacks, deal 200 extra damage");
+}

@@ -46,7 +46,7 @@ Map<Rarity, int> rarityToCost = {
   Rarity.Legendary: 100,
   Rarity.Exotic: 100,
   Rarity.Insane: 150,
-  Rarity.Secret: 10000,
+  Rarity.Secret: 340,
 };
 
 Map<Rarity, Color> rarityToColor = {
@@ -116,10 +116,10 @@ class SeanCard {
   @override
   String toString() {
     // ignore: prefer_interpolation_to_compose_strings
-    return "${alive ? "[ALIVE] " : "[DEAD]  "} Name: $name, ID: $id, " +
-        "AT: $attackPoints, HP: $healthPoints, LVL: $level, " +
-        "Cost: $cost, Rarity: $rarity, Power: $power, " +
-        "Mode: " +
+    return "${alive ? "[ALIVE] " : "[DEAD]  "} Name: $name, ID: $id, "
+            "AT: $attackPoints, HP: $healthPoints, LVL: $level, "
+            "Cost: $cost, Rarity: $rarity, Power: $power, "
+            "Mode: " +
         '${CardMode.values[mode.index]}'.substring(9);
   }
 

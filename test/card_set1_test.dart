@@ -144,6 +144,7 @@ void main() {
       final t1 = TestSean(20, 1000);
       final t2 = TestSean(20, 500);
       List<SeanCard> myCards = [a1, a2];
+      // ignore: unused_local_variable
       List<SeanCard> yourCards = [t1, t2];
       t1.healthPoints = 1000; // Boost the target
       t2.healthPoints = 500;
@@ -183,6 +184,7 @@ void main() {
       final t1 = LegendarySean();
       final t2 = UltraSean();
       List<SeanCard> myCards = [a1, a2];
+      // ignore: unused_local_variable
       List<SeanCard> yourCards = [t1, t2];
       t1.healthPoints = 1000; // Boost the target
       t2.healthPoints = 500;
