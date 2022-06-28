@@ -32,8 +32,7 @@ class SuperSean extends SeanCard {
             healthPoints: 75,
             level: 2,
             rarity: Rarity.Uncommon,
-            power: "Shield 40 damage OPEG (Once Per Every Game)",
-            icon: Icons.card_membership);
+            power: "Shield 40 damage OPEG (Once Per Every Game)");
 
   @override
   void processIncomingAttack(SeanCard attackingCard,

@@ -57,16 +57,16 @@ class GamePlay {
     var random = math.Random.secure();
 
     myCards = [
-      allCards[random.nextInt(allCards.length)],
-      allCards[random.nextInt(allCards.length)],
-      allCards[random.nextInt(allCards.length)],
+      SeanCard.clone(allCards[random.nextInt(allCards.length)]),
+      SeanCard.clone(allCards[random.nextInt(allCards.length)]),
+      SeanCard.clone(allCards[random.nextInt(allCards.length)]),
     ];
 
     for (var i in [0, 1, 2]) {
       while (true) {
         var card = allCards[random.nextInt(allCards.length)];
         if (card.rarity == myCards[i].rarity) {
-          yourCards.add(card);
+          yourCards.add(SeanCard.clone(card));
           break;
         }
       }

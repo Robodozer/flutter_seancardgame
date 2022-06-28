@@ -70,7 +70,6 @@ class SeanCard {
   int cost = 1; // Cost in post-its
   Rarity rarity = Rarity.Common;
   String power = "None";
-  IconData icon = Icons.card_travel;
   bool alive = true;
   String id = '';
   Color textColor = Colors.white;
@@ -82,16 +81,24 @@ class SeanCard {
       this.healthPoints = 0,
       this.level = 1,
       this.rarity = Rarity.Common,
-      this.power = "None",
-      this.icon = Icons.card_travel}) {
+      this.power = "None"}) {
     cost = rarityToCost[rarity] ?? 10;
     id = getRandomString();
     textColor = rarityToColor[rarity] ?? Colors.white;
   }
 
+  factory SeanCard.clone(SeanCard card) {
+    return SeanCard(card.name,
+        attackPoints: card.attackPoints,
+        healthPoints: card.healthPoints,
+        level: card.level,
+        rarity: card.rarity,
+        power: card.power);
+  }
+
   String getRandomString() {
     return String.fromCharCodes(
-        List.generate(9, (index) => random.nextInt(26) + 65));
+        List.generate(6, (index) => random.nextInt(26) + 65));
   }
 
   String getCost() {
