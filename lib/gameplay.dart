@@ -5,6 +5,8 @@ import 'package:flutter_seancardgame/card.dart';
 import 'package:flutter_seancardgame/card_set1.dart';
 import 'package:flutter_seancardgame/card_set2.dart';
 import 'package:flutter_seancardgame/card_set3.dart';
+import 'package:flutter_layout_grid/flutter_layout_grid.dart';
+
 // ignore: unused_import
 import 'package:google_fonts/google_fonts.dart';
 
@@ -89,29 +91,16 @@ class GamePlay {
     }
   }
 
-  Widget playModeWidget(Function(String, CardEvent) eventCallback) {
-    return Container(
-        alignment: Alignment.center,
-        child: IconButton(
-            icon: const Icon(Icons.play_circle_fill), // Icons.unpublished
-            iconSize: 72,
-            onPressed: playState != GamePlayState.waitConfirmTurn
-                ? null
-                : () {
-                    eventCallback("", CardEvent.turnConfirmed);
-                  }));
-  }
-
   List<Widget> yourCardWidgets(Function(String, CardEvent) eventCallback) {
     for (var e in yourCards) {
-      log('build after dealing cards: $e');
+      log('YOURCARDS build after dealing cards: $e');
     }
     return yourCards.map((f) => f.cardWidget(eventCallback)).toList();
   }
 
   List<Widget> myCardWidgets(Function(String, CardEvent) eventCallback) {
     for (var e in myCards) {
-      log('build after dealing cards: $e');
+      log('MYCARDS build after dealing cards: $e');
     }
     return myCards.map((f) => f.cardWidget(eventCallback)).toList();
   }
@@ -196,5 +185,27 @@ class GamePlay {
       default:
         assert(false);
     }
+  }
+
+  Widget floatingActionButtonWidget(eventCallback) {
+    return (playState == GamePlayState.waitConfirmTurn)
+        ? FloatingActionButton.extended(
+            icon: const Icon(Icons.play_arrow),
+            label: const Text("Play Turn"),
+            onPressed: playState != GamePlayState.waitConfirmTurn
+                ? null
+                : () {
+                    eventCallback("", CardEvent.turnConfirmed);
+                  })
+        : const SizedBox.shrink();
+  }
+
+  Widget allCardsWidget(eventCallback) {
+    return LayoutGrid(
+        columnSizes: [300.px, 300.px, 300.px],
+        rowSizes: const [auto],
+        rowGap: 40, // equivalent to mainAxisSpacing
+        columnGap: 24,
+        children: allCards.map((f) => f.cardWidget(eventCallback)).toList());
   }
 }

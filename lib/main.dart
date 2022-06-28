@@ -41,6 +41,10 @@ class _MyHomePageState extends State<MyHomePage> {
     gamePlay.dealCards();
   }
 
+  void noEventCallback(String id, CardEvent event) {
+    log("Event happened: $id $event");
+  }
+
   void eventCallback(String id, CardEvent event) {
     log("Event happened: $id $event");
     setState(() {
@@ -59,28 +63,31 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: Container(
-          margin: const EdgeInsets.all(10),
-          child: Column(children: [
-            LayoutGrid(
-                columnSizes: [300.px, 300.px, 300.px],
-                rowSizes: const [auto],
-                rowGap: 40, // equivalent to mainAxisSpacing
-                columnGap: 24,
-                children: gamePlay.yourCardWidgets(eventCallback)),
-            SizedBox(
-                height: 60, //height - 800 - 80,
-                child: gamePlay.playModeWidget(eventCallback)),
-            LayoutGrid(
-                columnSizes: [300.px, 300.px, 300.px],
-                rowSizes: const [auto],
-                rowGap: 40, // equivalent to mainAxisSpacing
-                columnGap: 20,
-                children: gamePlay.myCardWidgets(eventCallback)),
-          ]),
-        ));
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Container(
+        margin: const EdgeInsets.all(10),
+        child: //gamePlay.allCardsWidget(noEventCallback)),
+            Column(children: [
+          LayoutGrid(
+              columnSizes: [300.px, 300.px, 300.px],
+              rowSizes: const [auto],
+              rowGap: 40, // equivalent to mainAxisSpacing
+              columnGap: 24,
+              children: gamePlay.yourCardWidgets(eventCallback)),
+          const SizedBox(
+            height: 60, //height - 800 - 80,
+          ),
+          LayoutGrid(
+              columnSizes: [300.px, 300.px, 300.px],
+              rowSizes: const [auto],
+              rowGap: 40, // equivalent to mainAxisSpacing
+              columnGap: 20,
+              children: gamePlay.myCardWidgets(eventCallback)),
+        ]),
+      ),
+      floatingActionButton: gamePlay.floatingActionButtonWidget(eventCallback),
+    );
   }
 }

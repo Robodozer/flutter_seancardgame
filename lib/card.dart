@@ -91,7 +91,7 @@ class SeanCard {
 
   String getRandomString() {
     return String.fromCharCodes(
-        List.generate(6, (index) => random.nextInt(26) + 65));
+        List.generate(9, (index) => random.nextInt(26) + 65));
   }
 
   String getCost() {
