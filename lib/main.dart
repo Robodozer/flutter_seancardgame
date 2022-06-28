@@ -64,8 +64,15 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
-      ),
+          title: Row(children: [
+        Expanded(child: Text(widget.title)),
+        IconButton(
+            icon: const Icon(Icons.info_outline),
+            iconSize: 44,
+            onPressed: () {
+              log("Pressed INFO");
+            })
+      ])),
       body: Container(
         margin: const EdgeInsets.all(10),
         child: //gamePlay.allCardsWidget(noEventCallback)),
