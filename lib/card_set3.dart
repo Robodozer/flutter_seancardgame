@@ -48,6 +48,12 @@ class DepressedSean extends SeanCard {
             rarity: Rarity.Legendary,
             power:
                 "every successful attack, increase your attack damage by 100");
+
+  @override
+  void attackCard(SeanCard target, {int turn = 0, int? points}) {
+    super.attackCard(target, turn: turn, points: points);
+    attackPoints += 100;
+  }
 }
 
 class BountyHunterSean extends SeanCard {
