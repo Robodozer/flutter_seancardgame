@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:flutter_seancardgame/gameplay.dart';
 import 'package:flutter_seancardgame/card.dart';
+import 'package:flutter_seancardgame/info_page.dart';
+
 import 'dart:developer';
 
 void main() {
@@ -31,22 +33,6 @@ class MyHomePage extends StatefulWidget {
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class InfoPage extends StatelessWidget {
-  const InfoPage({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Info'),
-      ),
-      body: const Text(
-          'HOW TO PLAY: First, press the blue wand at the bottom right of the card you want to play. If yo want to cancel playing that card, just press the back button at the bottom right of the selected card. If you like the card you are playing, press the target on the selected card you want to attack. If you want to cancel attacking that selected target, press the yellow back button at the bottom right of the selected target.'),
-    );
-  }
 }
 
 class _MyHomePageState extends State<MyHomePage> {
