@@ -53,7 +53,7 @@ class GamePlay {
   String cardPlayedId = ''; // ID of card being played
   String cardTargetedId = ''; // ID of card being targeted
 
-  Future<void> dealCards() async {
+  void dealCards() {
     var random = math.Random.secure();
 
     myCards = [
