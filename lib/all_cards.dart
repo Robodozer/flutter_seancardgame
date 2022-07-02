@@ -41,44 +41,22 @@ class AllCards {
     return SeanCard.clone(getRandomCard());
   }
 
-  // Should get rid of this eventually
-  Widget allCardsWidget(eventCallback) {
+  Widget allCardsWidget() {
     return LayoutGrid(
         columnSizes: [300.px, 300.px, 300.px],
         rowSizes: const [auto],
         rowGap: 40, // equivalent to mainAxisSpacing
         columnGap: 24,
-        children: allCards.map((f) => f.cardWidget(eventCallback)).toList());
+        children: allCards
+            .map((f) => f.cardWidget((String s, CardEvent e) {}))
+            .toList());
   }
 }
 
 class AllCardsPage extends StatelessWidget {
-  const AllCardsPage({Key? key}) : super(key: key);
+  AllCardsPage({Key? key}) : super(key: key);
 
-  Widget allCards() {
-    return RichText(
-      text: const TextSpan(
-        children: [
-          TextSpan(
-            text: "'HOW TO PLAY: First, press the ",
-          ),
-          WidgetSpan(
-            child: Icon(Icons.auto_fix_normal, color: Colors.blue),
-          ),
-          TextSpan(
-            text:
-                " at the bottom right of the card you want to play. If you want to cancel playing that card, just press the ",
-          ),
-          WidgetSpan(
-            child: Icon(Icons.undo, color: Colors.orange),
-          ),
-          TextSpan(
-            text: " at the bottom right of the selected card. ",
-          ),
-        ],
-      ),
-    );
-  }
+  AllCards allCards = AllCards();
 
   // This widget is the root of your application.
   @override
@@ -87,7 +65,7 @@ class AllCardsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Info'),
       ),
-      body: allCards(),
+      body: allCards.allCardsWidget(),
     );
   }
 }
