@@ -1,11 +1,7 @@
 import 'dart:developer';
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:flutter_seancardgame/all_cards.dart';
 import 'package:flutter_seancardgame/card.dart';
-import 'package:flutter_seancardgame/card_set1.dart';
-import 'package:flutter_seancardgame/card_set2.dart';
-import 'package:flutter_seancardgame/card_set3.dart';
-import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
 // ignore: unused_import
 import 'package:google_fonts/google_fonts.dart';
@@ -18,34 +14,11 @@ enum GamePlayState {
   waitConfirmTurn,
 }
 
-List<SeanCard> allCards = [
-  PowerSean(),
-  SuperSean(),
-  UltraSean(),
-  LegendarySean(),
-  FartSean(),
-  TheFarrellFamily(),
-  TheFarrellFamilyEx(),
-  RockSean(),
-  ZombieSean(),
-  NinjaSean(),
-  HappySean(),
-  ThinkerSean(),
-  Sean(),
-  SatanSean(),
-  CoolSean(),
-  SuperiorSean(),
-  RedSean(),
-  OrangeSean(),
-  GoldenSean(),
-  BalletSean(),
-  DancingSean(),
-  DepressedSean(),
-];
-
 class GamePlay {
   List<SeanCard> myCards = [];
   List<SeanCard> yourCards = [];
+
+  AllCards allCards = AllCards();
 
   GameTurn turn = GameTurn.mine;
   GamePlayState playState = GamePlayState.waitStartTurn;
@@ -54,17 +27,15 @@ class GamePlay {
   String cardTargetedId = ''; // ID of card being targeted
 
   void dealCards() {
-    var random = math.Random.secure();
-
     myCards = [
-      SeanCard.clone(allCards[random.nextInt(allCards.length)]),
-      SeanCard.clone(allCards[random.nextInt(allCards.length)]),
-      SeanCard.clone(allCards[random.nextInt(allCards.length)]),
+      allCards.getRandomCardCopy(),
+      allCards.getRandomCardCopy(),
+      allCards.getRandomCardCopy(),
     ];
 
     for (var i in [0, 1, 2]) {
       while (true) {
-        var card = allCards[random.nextInt(allCards.length)];
+        var card = allCards.getRandomCard();
         if (card.rarity == myCards[i].rarity) {
           yourCards.add(SeanCard.clone(card));
           break;
@@ -198,14 +169,5 @@ class GamePlay {
                     eventCallback("", CardEvent.turnConfirmed);
                   })
         : const SizedBox.shrink();
-  }
-
-  Widget allCardsWidget(eventCallback) {
-    return LayoutGrid(
-        columnSizes: [300.px, 300.px, 300.px],
-        rowSizes: const [auto],
-        rowGap: 40, // equivalent to mainAxisSpacing
-        columnGap: 24,
-        children: allCards.map((f) => f.cardWidget(eventCallback)).toList());
   }
 }
