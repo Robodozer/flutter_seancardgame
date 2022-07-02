@@ -291,15 +291,23 @@ class SeanCard {
               eventCallback(id, CardEvent.untargetClicked);
             });
 
-      case CardMode.attacking:
-      case CardMode.beingAttacked:
-        return IconButton(
-            icon: const Icon(Icons.task_alt, color: Colors.green),
-            iconSize: 54,
-            //label: const Text("Play"),
-            onPressed: () {
-              eventCallback(id, CardEvent.turnConfirmed);
-            });
+      // case CardMode.attacking:
+      // case CardMode.beingAttacked:
+      //   return IconButton(
+      //       icon: const Icon(Icons.task_alt, color: Colors.green),
+      //       iconSize: 54,
+      //       //label: const Text("Play"),
+      //       onPressed: () {
+      //         eventCallback(id, CardEvent.turnConfirmed);
+      //       });case CardMode.attacking:
+      // case CardMode.beingAttacked:
+      //   return IconButton(
+      //       icon: const Icon(Icons.task_alt, color: Colors.green),
+      //       iconSize: 54,
+      //       //label: const Text("Play"),
+      //       onPressed: () {
+      //         eventCallback(id, CardEvent.turnConfirmed);
+      //       });
 
       default:
         return const SizedBox(height: 72, width: 54);
