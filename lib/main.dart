@@ -3,6 +3,7 @@ import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:flutter_seancardgame/gameplay.dart';
 import 'package:flutter_seancardgame/card.dart';
 import 'package:flutter_seancardgame/info_page.dart';
+import 'package:flutter_seancardgame/all_cards.dart';
 
 import 'dart:developer';
 
@@ -68,6 +69,15 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
           title: Row(children: [
         Expanded(child: Text(widget.title)),
+        IconButton(
+            icon: const Icon(Icons.amp_stories_outlined),
+            iconSize: 44,
+            onPressed: () {
+              log("Pressed INFO");
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return AllCardsPage();
+              }));
+            }),
         IconButton(
             icon: const Icon(Icons.info_outline),
             iconSize: 44,
