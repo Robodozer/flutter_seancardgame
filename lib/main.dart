@@ -69,6 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
           title: Row(children: [
         Expanded(child: Text(widget.title)),
+        /*
         IconButton(
             icon: const Icon(Icons.amp_stories_outlined),
             iconSize: 44,
@@ -77,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return AllCardsPage();
               }));
-            }),
+            }),*/
         IconButton(
             icon: const Icon(Icons.info_outline),
             iconSize: 44,
