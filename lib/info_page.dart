@@ -5,24 +5,44 @@ class InfoPage extends StatelessWidget {
 
   Widget infoText() {
     return RichText(
-      text: const TextSpan(
+      text: TextSpan(
         children: [
-          TextSpan(
+          const TextSpan(
             text: "'HOW TO PLAY: First, press the ",
           ),
-          WidgetSpan(
+          const WidgetSpan(
             child: Icon(Icons.auto_fix_normal, color: Colors.blue),
           ),
-          TextSpan(
+          const TextSpan(
             text:
                 " at the bottom right of the card you want to play. If you want to cancel playing that card, just press the ",
           ),
-          WidgetSpan(
+          const WidgetSpan(
+            child: Icon(Icons.undo, color: Colors.blue),
+          ),
+          const TextSpan(
+            text:
+                " at the bottom right of the selected card. Then, press the  ",
+          ),
+          const WidgetSpan(
+            child: Icon(Icons.ads_click, color: Colors.red),
+          ),
+          const TextSpan(
+            text:
+                "at the bottom right of the card you want to attack. If you want to cancel attacking that card, just press the ",
+          ),
+          const WidgetSpan(
             child: Icon(Icons.undo, color: Colors.orange),
           ),
-          TextSpan(
-            text: " at the bottom right of the selected card. ",
+          const TextSpan(
+            text: ". If you want to target that card, just press the ",
           ),
+          WidgetSpan(
+              child: FloatingActionButton.extended(
+            icon: const Icon(Icons.play_arrow),
+            label: const Text("Play Turn"),
+            onPressed: () {},
+          )),
         ],
       ),
     );
