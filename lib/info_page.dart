@@ -5,24 +5,45 @@ class InfoPage extends StatelessWidget {
 
   Widget infoText() {
     return RichText(
-      text: const TextSpan(
+      text: TextSpan(
+        style: const TextStyle(fontSize: 30),
         children: [
-          TextSpan(
-            text: "'HOW TO PLAY: First, press the ",
+          const TextSpan(
+            text: "HOW TO PLAY: First, press the ",
           ),
-          WidgetSpan(
-            child: Icon(Icons.auto_fix_normal, color: Colors.blue),
+          const WidgetSpan(
+            child: Icon(Icons.auto_fix_normal, color: Colors.blue, size: 40),
           ),
-          TextSpan(
+          const TextSpan(
             text:
                 " at the bottom right of the card you want to play. If you want to cancel playing that card, just press the ",
           ),
+          const WidgetSpan(
+            child: Icon(Icons.undo, color: Colors.blue, size: 40),
+          ),
+          const TextSpan(
+            text: " at the bottom right of the selected card. Then, press the ",
+          ),
+          const WidgetSpan(
+            child: Icon(Icons.ads_click, color: Colors.red, size: 40),
+          ),
+          const TextSpan(
+            text:
+                " at the bottom right of the card you want to attack. If you want to cancel attacking that card, just press the ",
+          ),
+          const WidgetSpan(
+            child: Icon(Icons.undo, color: Colors.orange, size: 40),
+          ),
+          const TextSpan(
+            text: ". If you want to target that card, just press the ",
+          ),
           WidgetSpan(
-            child: Icon(Icons.undo, color: Colors.orange),
-          ),
-          TextSpan(
-            text: " at the bottom right of the selected card. ",
-          ),
+              child: FloatingActionButton.extended(
+            icon: const Icon(Icons.play_arrow, size: 20),
+            label: const Text("Play Turn"),
+            extendedTextStyle: const TextStyle(fontSize: 15),
+            onPressed: () {},
+          )),
         ],
       ),
     );
